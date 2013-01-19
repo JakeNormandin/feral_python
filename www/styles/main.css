@@ -1,0 +1,106 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/* SETTING BACKGROUND FOR PAGES */
+
+#login, #index, #ballpython, #cornsnake, #boa, #carpetpython, #snake_index, #genetics_calculator, #reptile_tracker {
+	background:url(../images/black_scales2.png);
+}
+
+/* OVER RIDING THEME ROLLER SETTINGS */ 
+
+h1 {
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 35px;
+}
+
+h2 {
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 35px;
+}
+
+
+h3 {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+
+h4 {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+.index_title {
+	color:#FFF;
+}
+
+p {
+	color: #FFF;
+	font-size: 16px;
+	font-family: 'Anaheim', sans-serif;
+}
+
+.ui-header .ui-title {
+	margin-right:20px;margin-left:20px;
+}
+
+.ui-collapsible-inset .ui-collapsible-content {
+	margin-top: 20px;	
+}
+
+.ui-btn-inner {
+	font-size: 20px;
+	font-family: 'Source Sans Pro', sans-serif;	
+}
+
+.ui-header .ui-title {
+	font-size: 20px;
+	font-family: 'Source Sans Pro', sans-serif;	
+}
+
+.ui-header > .ui-btn, .ui-footer > .ui-btn {
+	margin-top: 8px;	
+}
+
+.index_title {
+	margin-top: 0px;	
+}
+
+#login_popup {
+	background: #000;
+	font-size:20px;
+	border:3px solid #9FE047;	
+}
+
+#register_popup {
+	background: #000;
+	font-size:20px;
+	border:3px solid #9FE047;	
+}
+
+#addsnake_popup {
+	background: #000;
+	font-size:20px;
+	border:3px solid #9FE047;	
+}
+
+.input {
+	color: #000;	
+	background: #9AD945;
+	border: none;
+	font-family: 'Source Sans Pro', sans-serif;	
+	font-weight: 600;
+}
+
+::-webkit-input-placeholder {
+   color: black;
+}
+
+:-moz-placeholder {  
+   color: black;  
+}
+
+
+
+
+
+
