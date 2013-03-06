@@ -3,7 +3,7 @@
 <!-- FUNCTION GETS MY SNAKES FOR REPTILE TRACKER -->
 
 function getMySnakes() {
-	$.getJSON("http://www.feralmedia.ca/FeralPython/get_mysnakes.php", function(mysnakes){
+	$.getJSON("http://www.feralmedia.ca/FP/get_mysnakes.php", function(mysnakes){
 	$('#MySnakesList li').remove(); /* Remove list items, then run forloop */
 	//alert(lures[1].brand);	
 	//alert(lures.length);
@@ -23,7 +23,7 @@ function getMySnakes() {
 <!-- FUNCTION GETS BALL PYTHONS FOR INDEX -->
 
 function getBallPythons() {
-	$.getJSON("http://www.feralmedia.ca/FeralPython/get_bp.php", function(bps){
+	$.getJSON("http://www.feralmedia.ca/FP/get_bp.php", function(bps){
 	$('.bp').remove(); /* Remove list items, then run forloop */
 	//alert(lures[1].brand);	
 	//alert(lures.length);
@@ -45,7 +45,7 @@ function getBallPythons() {
 <!-- FUNCTION GETS CORN SNAKES FOR INDEX -->
 
 function getCornSnakes() {
-	$.getJSON("http://www.feralmedia.ca/FeralPython/get_corn.php", function(corn){
+	$.getJSON("http://www.feralmedia.ca/FP/get_corn.php", function(corn){
 	$('.corn').remove(); /* Remove list items, then run forloop */
 	//alert(lures[1].brand);	
 	//alert(lures.length);
@@ -67,7 +67,7 @@ function getCornSnakes() {
 <!-- FUNCTION GETS BOA CONSTRICTORS FOR INDEX -->
 
 function getBoaConstrictors() {
-	$.getJSON("http://www.feralmedia.ca/FeralPython/get_boa.php", function(boa){
+	$.getJSON("http://www.feralmedia.ca/FP/get_boa.php", function(boa){
 	$('.boa').remove(); /* Remove list items, then run forloop */
 	//alert(lures[1].brand);	
 	//alert(lures.length);
@@ -89,7 +89,7 @@ function getBoaConstrictors() {
 <!-- FUNCTION GETS CARPET PYTHONS FOR INDEX -->
 
 function getCarpetPythons() {
-	$.getJSON("http://www.feralmedia.ca/FeralPython/get_carpet.php", function(carpet){
+	$.getJSON("http://www.feralmedia.ca/FP/get_carpet.php", function(carpet){
 	$('.carpet').remove(); /* Remove list items, then run forloop */
 	//alert(lures[1].brand);	
 	//alert(lures.length);
