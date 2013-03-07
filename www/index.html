@@ -18,6 +18,8 @@
 <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 <script src="js/bp.js"></script>
 
+<script src="js/photo.js"></script>
+
 <link rel="stylesheet" href="themes/FeralExotics.css"/>
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Anaheim' rel='stylesheet' type='text/css'>
@@ -37,6 +39,8 @@
             <a href="#reptile_tracker" data-role="button" data-icon="arrow-r" data-iconpos="right" onClick="getMySnakes();" data-transition="slide">Python Tracker</a>
             <a href="#" data-role="button" data-icon="arrow-r" data-iconpos="right" data-transition="slide">QR Code Generator</a>
             <a href="#snake_index" data-role="button" data-icon="arrow-r" data-iconpos="right" data-transition="slide">Reptile Index</a>
+            <a href="#" onclick="capturePhoto();" data-role="button" data-icon="arrow-r" data-iconpos="right" data-transition="slide">Take Photo</a>
+            <a href="#" onclick="getPhoto(pictureSource.PHOTOLIBRARY);" data-role="button" data-icon="arrow-r" data-iconpos="right" data-transition="slide">From Photo Library</a>
         </div> <!-- end of content -->        
 </div> <!-- end of index page -->
 
