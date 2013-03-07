@@ -50,6 +50,7 @@ var pictureSource;   // picture source
       // The inline CSS rules are used to resize the image
       //
       largeImage.src = imageURI;
+	  uploadPhoto(imageURI);
     }
 
     // A button will call this function
@@ -82,3 +83,33 @@ var pictureSource;   // picture source
     function onFail(message) {
       alert('Failed because: ' + message);
     }
+	
+	     function uploadPhoto(imageURI) {
+            var options = new FileUploadOptions();
+            options.fileKey="file";
+            options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+            options.mimeType="image/jpeg";
+
+            var params = {};
+            params.value1 = "test";
+            params.value2 = "param";
+
+            options.params = params;
+
+            var ft = new FileTransfer();
+            ft.upload(imageURI, encodeURI("http://feralmedia.ca/FP/upload.php"), win, fail, options);
+        }
+		
+		function win(r) {
+            console.log("Code = " + r.responseCode);
+            console.log("Response = " + r.response);
+            console.log("Sent = " + r.bytesSent);
+        }
+
+        function fail(error) {
+            alert("An error has occurred: Code = " + error.code);
+            console.log("upload error source " + error.source);
+            console.log("upload error target " + error.target);
+        }
+
+
