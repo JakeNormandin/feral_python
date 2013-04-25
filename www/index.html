@@ -1,389 +1,586 @@
-<!-- JQM sites must start with an HTML5 doctype to take advantage of all the frameworks features -->
 <!doctype html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Feral Exotics</title>
+<title>FeralPython</title>
 <!-- If this isn't set, many mobile browsers will use a virtual width of around 900px, we want it to render at the actual device width -->
 <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="apple-touch-icon" href="apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png" />
+<link rel="apple-touch-startup-image" href="apple-touch-startup-image-320x460.png" />
+<link rel="apple-touch-startup-image" sizes="768x1004" href="apple-touch-startup-image-768x1004.png" />
 
 <!-- PhoneGap Scripts -->
-<script type="text/javascript" src="phonegap.js"></script>
 <script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="cordova-2.5.0.js"></script>
 
 <!-- LINKS TO JQUERY MOBILE SITES -->
-<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+
+<link rel="stylesheet" type='text/css' href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+
+<!-- date picker -->
+<script>
+		//reset type=date inputs to text
+		$( document ).bind( "mobileinit", function(){
+			$.mobile.page.prototype.options.degradeInputs.date = true;
+			//$.datepicker.formatDate('dd/mm/yyyy');
+			$.mobile.page.prototype.options.addBackBtn = true;
+     		$.mobile.defaultPageTransition = 'none';
+     		$.mobile.useFastClick  = false;
+			$.mobile.loader.prototype.options.text = "loading";
+  			$.mobile.loader.prototype.options.textVisible = false;
+  			$.mobile.loader.prototype.options.theme = "a";
+  			$.mobile.loader.prototype.options.html = "";
+		});
+</script>
+
 <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-<script src="js/bp.js"></script>
 
-<script src="js/photo.js"></script>
+<!-- date picker scripts -->
+<script src="js/jQuery.ui.datepicker.js"></script>
+<script src="js/jquery.ui.datepicker.mobile.js"></script>
 
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/register_user.js"></script>
+<script type="text/javascript" src="js/login.js"></script>
+
+<!-- QR Code Scripts -->
+<script type="text/javascript" src="js/generate_qr.js"></script>
+<script type="text/javascript" src="js/email_qr.js"></script>
+<script type="text/javascript" src="js/QR.js"></script>
+
+<!-- Photo Scripts -->
+<script type="text/javascript" src="js/photo.js"></script>
+
+<!--Includes-->
 <link rel="stylesheet" href="themes/FeralExotics.css"/>
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Anaheim' rel='stylesheet' type='text/css'>
 <link href="styles/main.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="styles/jquery.ui.datepicker.mobile.css" /> 
+
 </head>
 
-<body>
+<body onLoad="logOut();">
 
+<!-- LOGIN -->
+    
+<div data-role="page" id="login" data-theme="a">
+    <div data-role="content">
+        <div class="fp_logo"><img src="images/fp_logo.png" style="max-width:100%;" alt="FeralPython"/></div>
+        <div class="fp_logo_ipad"><img src="images/fp_logo_ipad.png" alt="FP iPad"/></div>
+        <div id="login_errors"></div>
+        <form id="login_user" action="#" onsubmit="return logForm(this)">
+            <input type="email" class="input" name="email_log" id="email_log" placeholder="Email" data-theme="a" value=""  />
+            <input type="password" class="input" name="password_log" id="password_log" placeholder="Password" data-theme="a" value="" />
+            <input type="submit" data-theme="a" value="Sign In" />
+        </form>
+        <a href="#register" data-role="button" data-transition="slide">Register</a>
+    </div> <!-- end of content -->
+</div> <!-- end of login page -->
+    
+<!-- REGISTER -->
+    
+<div data-role="page" id="register" data-theme="a">
+    <div data-role="content">
+        <div class="fp_logo"><img src="images/fp_logo.png" style="max-width:100%;" alt="FeralPython"/></div>
+        <div class="fp_logo_ipad"><img src="images/fp_logo_ipad.png" alt="FP iPad"/></div>
+        <form id="add_user" action="#" onsubmit="return regForm(this)">
+            <input type="email" class="input" name="email_reg" id="email_reg" placeholder="Email" data-theme="a" value=""  />
+            <input type="password" class="input" name="password_reg" id="password_reg" placeholder="Password" data-theme="a" value="" />
+            <input type="submit" data-theme="a" value="Register" />
+        </form>
+        <a href="#login" data-role="button" data-transition="slide" data-direction="reverse">Sign In</a>
+    </div> <!-- end of content -->
+</div> <!-- end of registration page -->
 
-<!-- INDEX PAGE -->
+<!-- INDEX -->
 
 <div data-role="page" id="index" data-theme="a">
-		
         <div data-role="content">
-        	<!-- inset adds margin space, data filter adds search -->
-            <div id="logo"><img src="images/feral_exotics.png" style="max-width:100%;" alt="Feral Exotics"/></div>
-            <a href="#reptile_tracker" data-role="button" data-icon="arrow-r" data-iconpos="right" onClick="getMySnakes();" data-transition="slide">Python Tracker</a>
-            <a href="#" data-role="button" data-icon="arrow-r" data-iconpos="right" data-transition="slide">QR Code Generator</a>
-            <a href="#snake_index" data-role="button" data-icon="arrow-r" data-iconpos="right" data-transition="slide">Reptile Index</a>
-            <a href="#" onclick="capturePhoto();" data-role="button" data-icon="arrow-r" data-iconpos="right" data-transition="slide">Take Photo</a>
-            <a href="#" onclick="getPhoto(pictureSource.PHOTOLIBRARY);" data-role="button" data-icon="arrow-r" data-iconpos="right" data-transition="slide">From Photo Library</a>
-            <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-    		<img style="display:none;" id="largeImage" src="" />
-
+            <div id="fp_logo2"><img src="images/fp_logo.png" style="max-width:100%;" alt="FeralPython"/></div>
+             <div id="fp_logo2_ipad"><img src="images/fp_logo_ipad.png" alt="FP iPad"/></div>
+            <a href="#reptile_tracker" data-role="button" data-transition="slide" data-icon="arrow-r" data-iconpos="right" onClick="getMySnakes();">My Snakes</a>
+            <a href="#breeding_mypairings" data-role="button" data-transition="slide" data-icon="arrow-r" data-iconpos="right" onClick="getMyPairings();">Breeding Tracker</a>
+            <a href="#morph_index" onClick="getBallPythons();" data-transition="slide" data-role="button" data-icon="arrow-r" data-iconpos="right">Morph Index</a>
+            <a href="#care_tips" data-role="button" data-transition="slide" data-icon="arrow-r" data-iconpos="right">Care Tips</a>
+            <a href="#login" onClick="logOut();" data-transition="slide" data-role="button" data-icon="arrow-r" data-iconpos="right">Sign Out</a>
         </div> <!-- end of content -->        
 </div> <!-- end of index page -->
 
-<!-- REPTILE KEEPER PAGE -->
+<!-- MY SNAKES -->
 
 <div data-role="page" id="reptile_tracker" data-theme="a">
-		<div id="header" data-role="header" data-theme="a">
-        	<h1>Reptile Tracker</h1>
+		<div class="header" data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
             <a data-role="button" data-theme="a" href="#index" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
-            <a data-role="button" href="#addsnake_popup" data-icon="plus" data-theme="a" data-rel="popup" data-position-to="window" data-transition="pop">Add</a>
-        	<div data-role="popup" data-theme="a" data-overlay-theme="a" id="addsnake_popup" style="padding:10px 20px;">
-        	<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-            <form>
-                <input type="text" class="input" name="mysnakes_name" id="mysnakes_name" placeholder="Name:" data-theme="a" value="" />
-                <input type="text" class="input" name="mysnakes_morph" id="mysnakes_morph" placeholder="Morph:" data-theme="a" value=""  />
-                <input type="text" class="input" name="mysnakes_weight" id="mysnakes_weight" placeholder="Weight:" data-theme="a" value="" />
-                <select id="mysnakes_sex" name="mysnakes_sex">
-                    <option data-placeholder="true">Sex</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-                Birth Date:
-                <fieldset data-role="controlgroup" data-type="horizontal"> 
-                	<select id="mysnakes_month" name="mysnakes_month">
-                    	<option data-placeholder="true">Month</option>
-                        <option value='January'>January</option>
-                        <option value='February'>February</option>
-                        <option value='March'>March</option>
-                        <option value='April'>April</option>
-                        <option value='May'>May</option>
-                        <option value='June'>June</option>
-                        <option value='July'>July</option>
-                        <option value='August'>August</option>
-                        <option value='September'>September</option>
-                        <option value='October'>October</option>
-                        <option value='November'>November</option>
-                        <option value='December'>December</option>
-                	</select>
-                    <select id="mysnakes_day" name="mysnakes_day">
-                    	<option data-placeholder="true">Day</option>
-                        <option value='01'>01</option>
-                        <option value='02'>02</option>
-                        <option value='03'>03</option>
-                        <option value='04'>04</option>
-                        <option value='05'>05</option>
-                        <option value='06'>06</option>
-                        <option value='07'>07</option>
-                        <option value='08'>08</option>
-                        <option value='09'>09</option>
-                        <option value='10'>10</option>
-                        <option value='11'>11</option>
-                        <option value='12'>12</option>
-                        <option value='13'>13</option>
-                        <option value='14'>14</option>
-                        <option value='15'>15</option>
-                        <option value='16'>16</option>
-                        <option value='17'>17</option>
-                        <option value='18'>18</option>
-                        <option value='19'>19</option>
-                        <option value='20'>20</option>
-                        <option value='21'>21</option>
-                        <option value='22'>22</option>
-                        <option value='23'>23</option>
-                        <option value='24'>24</option>
-                        <option value='25'>25</option>
-                        <option value='26'>26</option>
-                        <option value='27'>27</option>
-                        <option value='28'>28</option>
-                        <option value='29'>29</option>
-                        <option value='30'>30</option>
-                        <option value='31'>31</option>
-                	</select>
-                </fieldset>
-                    <select id="mysnakes_year" name="mysnakes_year">
-                    	<option data-placeholder="true">Year</option>
-                        <option value='1930'>1930</option>
-                        <option value='1931'>1931</option>
-                        <option value='1932'>1932</option>
-                        <option value='1933'>1933</option>
-                        <option value='1934'>1934</option>
-                        <option value='1935'>1935</option>
-                        <option value='1936'>1936</option>
-                        <option value='1937'>1937</option>
-                        <option value='1938'>1938</option>
-                        <option value='1939'>1939</option>
-                        <option value='1940'>1940</option>
-                        <option value='1941'>1941</option>
-                        <option value='1942'>1942</option>
-                        <option value='1943'>1943</option>
-                        <option value='1944'>1944</option>
-                        <option value='1945'>1945</option>
-                        <option value='1946'>1946</option>
-                        <option value='1947'>1947</option>
-                        <option value='1948'>1948</option>
-                        <option value='1949'>1949</option>
-                        <option value='1950'>1950</option>
-                        <option value='1951'>1951</option>
-                        <option value='1952'>1952</option>
-                        <option value='1953'>1953</option>
-                        <option value='1954'>1954</option>
-                        <option value='1955'>1955</option>
-                        <option value='1956'>1956</option>
-                        <option value='1957'>1957</option>
-                        <option value='1958'>1958</option>
-                        <option value='1959'>1959</option>
-                        <option value='1960'>1960</option>
-                        <option value='1961'>1961</option>
-                        <option value='1962'>1962</option>
-                        <option value='1963'>1963</option>
-                        <option value='1964'>1964</option>
-                        <option value='1965'>1965</option>
-                        <option value='1966'>1966</option>
-                        <option value='1967'>1967</option>
-                        <option value='1968'>1968</option>
-                        <option value='1969'>1969</option>
-                        <option value='1970'>1970</option>
-                        <option value='1971'>1971</option>
-                        <option value='1972'>1972</option>
-                        <option value='1973'>1973</option>
-                        <option value='1974'>1974</option>
-                        <option value='1975'>1975</option>
-                        <option value='1976'>1976</option>
-                        <option value='1977'>1977</option>
-                        <option value='1978'>1978</option>
-                        <option value='1979'>1979</option>
-                        <option value='1980'>1980</option>
-                        <option value='1981'>1981</option>
-                        <option value='1982'>1982</option>
-                        <option value='1983'>1983</option>
-                        <option value='1984'>1984</option>
-                        <option value='1985'>1985</option>
-                        <option value='1986'>1986</option>
-                        <option value='1987'>1987</option>
-                        <option value='1988'>1988</option>
-                        <option value='1989'>1989</option>
-                        <option value='1990'>1990</option>
-                        <option value='1991'>1991</option>
-                        <option value='1992'>1992</option>
-                        <option value='1993'>1993</option>
-                        <option value='1994'>1994</option>
-                        <option value='1995'>1995</option>
-                        <option value='1996'>1996</option>
-                        <option value='1997'>1997</option>
-                        <option value='1998'>1998</option>
-                        <option value='1999'>1999</option>
-                        <option value='2000'>2000</option>
-                        <option value='2001'>2001</option>
-                        <option value='2002'>2002</option>
-                        <option value='2003'>2003</option>
-                        <option value='2004'>2004</option>
-                        <option value='2005'>2005</option>
-                        <option value='2006'>2006</option>
-                        <option value='2007'>2007</option>
-                        <option value='2008'>2008</option>
-                        <option value='2009'>2009</option>
-                        <option value='2010'>2010</option>
-                        <option value='2011'>2011</option>
-                        <option value='2012'>2012</option> 
-                        <option value='2013'>2013</option>
-                	</select>
-                <input type="submit" data-theme="a" value="ADD SNAKE" />
-            </form>
-		</div> <!-- end of login popup -->
+            <a data-role="button" onClick="getAddSnakeForm()" href="#add_snake" data-transition="slide" data-icon="plus" data-theme="a">Add</a>
         </div> <!-- end of header -->
-        
         <div data-role="content">
-        	
-        	<!-- inset adds margin space, data filter adds search -->
-        	<ul id="MySnakesList" data-role="listview" data-inset="true" data-filter="true">
+        	<ul id="MySnakesList" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Search:" >
             	
             </ul>
         </div> <!-- end of content -->
+</div> <!-- end of my snakes page -->
+
+<!-- ADD SNAKE -->
+
+<div data-role="page" id="add_snake" data-theme="a">
+		<div class="header" data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
+            <a data-role="button" onClick="resetAddSnakeForm();" data-theme="a" href="#reptile_tracker" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div id="add_snake_form"></div>
+</div> <!-- end of add snake page -->
+
+<!-- SNAKE DETAILS -->
+
+<div data-role="page" id="mysnakes_maindetails" data-theme="a">
+		<div data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
+            <a data-role="button" data-theme="a" onClick="getMySnakes();" href="#reptile_tracker" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div data-role="content" id="this_snake"></div> <!-- end of content -->
+</div> <!-- end of snake details page -->
+
+<!-- EDIT SNAKE FORM -->
+
+<div data-role="page" id="mysnakes_editsnake" data-theme="a">
+		<div data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
+            <a data-role="button" data-theme="a" href="#mysnakes_maindetails" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div data-role="content">
+            <div id="edit_snake_form"></div> <!-- end of edit snake form -->
+        </div> <!-- end of content -->
+</div> <!-- end of edit snake details page -->
+
+<!-- FEEDING -->
+
+<!-- FEEDING DETAILS -->
+
+<div data-role="page" id="mysnakes_feedingdetails" data-theme="a">
+		<div data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
+            <a data-role="button" data-theme="a" href="#mysnakes_maindetails" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+            <a data-role="button" onClick="getAddFeedingForm()" href="#add_feeding" data-transition="slide" data-icon="plus" data-theme="a">Add</a>
+        </div> <!-- end of header -->
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true" id="feeding_list"></ul>
+        </div> <!-- end of content -->
+</div> <!-- end of feeding details page -->
+
+<!-- INDIVIDUAL FEEDING DETAILS -->
+
+<div data-role="page" id="this_feeding" data-theme="a">
+	<div class="header" data-role="header" data-theme="a">
+        <h1>My Snakes</h1>
+        <a data-role="button" data-theme="a" href="#mysnakes_feedingdetails" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+    </div> <!-- end of header -->
+    <div data-role="content">
+    	<div id="this_feed"></div>
+    </div>   
+</div> <!-- end of feeding details -->
+
+<!-- ADD FEEDING PAGE -->
+
+<div data-role="page" id="add_feeding" data-theme="a">
+		<div class="header" data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
+            <a data-role="button" onClick="resetAddFeedingForm();" data-theme="a" href="#mysnakes_feedingdetails" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div id="add_feeding_form"></div>
+</div> <!-- end of add feeding page -->
+
+<!-- EDIT FEEDING FORM -->
+
+<div data-role="page" id="mysnakes_editfeeding" data-theme="a">
+		<div data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
+            <a data-role="button" data-theme="a" href="#this_feeding" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div data-role="content">
+            <div id="edit_feeding_form"></div> <!-- end of edit feeding form -->
+        </div> <!-- end of content -->
+</div> <!-- end of edit feeding details page -->
+
+<!-- SHEDDING -->
+
+<!-- SHEDDING DETAILS -->
+
+<div data-role="page" id="mysnakes_sheddingdetails" data-theme="a">
+		<div data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
+            <a data-role="button" data-theme="a" href="#mysnakes_maindetails" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+            <a data-role="button" onClick="getAddSheddingForm()" href="#add_shedding" data-icon="plus" data-transition="slide" data-theme="a">Add</a>
+        </div> <!-- end of header -->
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true" id="shedding_list"></ul>
+        </div> <!-- end of content -->
+</div> <!-- end of shedding details page -->
+
+<!-- INDIVIDUAL SHEDDING DETAILS -->
+
+<div data-role="page" id="this_shedding" data-theme="a">
+	<div class="header" data-role="header" data-theme="a">
+        <h1>My Snakes</h1>
+        <a data-role="button" data-theme="a" href="#mysnakes_sheddingdetails" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+    </div> <!-- end of header -->
+    <div data-role="content">
+    	<div id="this_shed"></div>
+    </div>       
+</div> <!-- end of shedding details -->
+
+<!-- ADD SHEDDING PAGE -->
+
+<div data-role="page" id="add_shedding" data-theme="a">
+		<div class="header" data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
+            <a data-role="button" onClick="resetAddSheddingForm();" data-theme="a" href="#mysnakes_sheddingdetails" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div id="add_shedding_form"></div>
+</div> <!-- end of add shedding page -->
+
+<!-- EDIT SHEDDING FORM -->
+
+<div data-role="page" id="mysnakes_editshedding" data-theme="a">
+		<div data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
+            <a data-role="button" data-theme="a" href="#this_shedding" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div data-role="content">
+            <div id="edit_shedding_form"></div> <!-- end of edit shedding form -->
+        </div> <!-- end of content -->
+</div> <!-- end of shedding details page -->
+
+<!-- WEIGHT -->
+
+<!-- WEIGHT MAIN DETAILS -->
+
+<div data-role="page" id="mysnakes_weightdetails" data-theme="a">
+		<div data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
+            <a data-role="button" data-theme="a" href="#mysnakes_maindetails" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+            <a data-role="button" onClick="getAddWeightForm()" href="#add_weight" data-transition="slide" data-icon="plus" data-theme="a">Add</a>
+        </div> <!-- end of header -->
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true" id="weight_list"></ul>
+        </div> <!-- end of content -->
+</div> <!-- end of weight main details page -->
+
+<!-- INDIVIDUAL WEIGHT DETAILS -->
+
+<div data-role="page" id="this_weightdetails" data-theme="a">
+	<div class="header" data-role="header" data-theme="a">
+        <h1>My Snakes</h1>
+        <a data-role="button" data-theme="a" href="#mysnakes_weightdetails" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+    </div> <!-- end of header -->
+    <div data-role="content">
+    	<div id="this_weight"></div>
+    </div>         
+</div> <!-- end of individual weight details -->
+
+<!-- ADD WEIGHT PAGE -->
+
+<div data-role="page" id="add_weight" data-theme="a">
+		<div class="header" data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
+            <a data-role="button" data-theme="a" href="#mysnakes_weightdetails" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div id="add_weight_form"></div>
+</div> <!-- end of add weight page -->
+
+<!-- EDIT WEIGHT FORM -->
+
+<div data-role="page" id="mysnakes_editweight" data-theme="a">
+		<div data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
+            <a data-role="button" data-theme="a" href="#this_weightdetails" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div data-role="content">
+            <div id="edit_weight_form"></div> <!-- end of edit weight form -->
+        </div> <!-- end of content -->
+</div> <!-- end of weight details page -->
+
+<!-- LENGTH -->
+
+<!-- LENGTH MAIN DETAILS -->
+
+<div data-role="page" id="mysnakes_lengthdetails" data-theme="a">
+		<div data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
+            <a data-role="button" data-theme="a" href="#mysnakes_maindetails" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+            <a data-role="button" onClick="getAddLengthForm()" href="#add_length" data-transition="slide" data-icon="plus" data-theme="a">Add</a>
+        </div> <!-- end of header -->
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true" id="length_list"></ul>
+        </div> <!-- end of content -->
+</div> <!-- end of length main details page -->
+
+<!-- INDIVIDUAL LENGTH DETAILS -->
+
+<div data-role="page" id="this_lengthdetails" data-theme="a">
+	<div class="header" data-role="header" data-theme="a">
+        <h1>My Snakes</h1>
+        <a data-role="button" data-theme="a" href="#mysnakes_lengthdetails" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+    </div> <!-- end of header -->
+    <div data-role="content">
+    	<div id="this_length"></div>
+    </div>   
+</div> <!-- end of individual weight details -->
+
+<!-- ADD LENGTH PAGE -->
+
+<div data-role="page" id="add_length" data-theme="a">
+		<div class="header" data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
+            <a data-role="button" data-theme="a" href="#mysnakes_lengthdetails" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div id="add_length_form"></div>
+</div> <!-- end of add length page -->
+
+<!-- EDIT LENGTH FORM -->
+
+<div data-role="page" id="mysnakes_editlength" data-theme="a">
+		<div data-role="header" data-theme="a">
+        	<h1>My Snakes</h1>
+            <a data-role="button" data-theme="a" href="#this_lengthdetails" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div data-role="content">
+            <div id="edit_length_form"></div> <!-- end of edit length form -->
+        </div> <!-- end of content -->
+</div> <!-- end of length details page -->
+
+<!-- PAIRINGS -->
+
+<!-- BREEDING TRACKER PAIRINGS  -->
+
+<div data-role="page" id="breeding_mypairings" data-theme="a">
+		<div class="header" data-role="header" data-theme="a">
+        	<h1>Pairings</h1>
+            <a data-role="button" data-theme="a" href="#index" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+            <a data-role="button" onClick="getPairingValues();" data-transition="slide" href="#add_pairings" data-icon="plus" data-theme="a">Add</a>
+        </div> <!-- end of header -->
+        <div data-role="content">
+        	<ul id="PairingsList" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Search:"></ul>
+        </div> <!-- end of content -->
+</div> <!-- end of breeding tracker pairings page -->
+
+<!-- THIS PAIRING  -->
+
+<div data-role="page" id="breeding_thispairing" data-theme="a">
+		<div class="header" data-role="header" data-theme="a">
+        	<h1>My Pairings</h1>
+            <a data-role="button" data-theme="a" href="#breeding_mypairings" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div data-role="content">
+        	<div id="this_pairing"></div>
+            <div id="events_title"><h3>Events</h3></div>
+            <ul id="MyEventsList" data-role="listview" data-inset="true"></ul>
+            <div id="add_event_button"></div>
+            <div id="pairing_clutches"></div>
+            <div id="add_clutch_button"></div>
+        </div> <!-- end of content -->
+</div> <!-- end of breeding tracker pairings page -->
+
+<!-- ADD PAIRING  -->
+
+<div data-role="page" id="add_pairings" data-theme="a">
+		<div class="header" data-role="header" data-theme="a">
+        	<h1>Add Pairing</h1>
+            <a data-role="button" data-theme="a" href="#breeding_mypairings" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div data-role="content">
+            <div id="add_pairings_form">
+                <h3>Add Pairing</h3>  
+                <form id="mysnakes_addpairings" data-ajax="false" action="..." onsubmit="return PairingsForm(this)">
+                    Pairing Registration Date:
+                    <input type="date" name="pairings_addpairingsdate" id="pairings_addpairingsdate" value=""  />
+                    <div id="add_pairing_errors"></div>
+                    <select id="pairings_addmale" name="pairings_addmale">
+    					<option data-placeholder="true">Male</option>
+                    </select>
+                    <select id="pairings_addfemale" name="pairings_addfemale">
+                    	<option data-placeholder="true">Female</option>
+                    </select>
+                    <input type="submit" data-theme="a" value="ADD PAIRING" />
+                </form>        	
+            </div> <!-- end of content -->
+        </div>
 </div> <!-- end of reptile keeper page -->
 
+<!-- EDIT PAIR FORM -->
 
-
-<!-- REPTILE INDEX PAGE -->
-
-<div data-role="page" id="genetics_calculator" data-theme="a">
+<div data-role="page" id="breeding_editpair" data-theme="a">
 		<div data-role="header" data-theme="a">
-        	<h1>Genetics</h1>
-            <a data-role="button" data-theme="a" href="#index" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        	<h1>Edit Pair</h1>
+            <a data-role="button" data-theme="a" href="#breeding_thispairing" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
         </div> <!-- end of header -->
         <div data-role="content">
-
-			<h2 class="index_title">Genetics Calculator</h2>
-            
-            <form id="genetics_calculator_form" action="#" method="post">
-            	<div data-role="none">
-                    <select id="select-male" name="select-male">
-                    	<option data-placeholder="true">Male</option>
-                        <option value="albino">Albino</option>
-                        <option value="bumblebee">Bumblebee</option>
-                        <option value="cinnamon">Cinnamon</option>
-                        <option value="clown">Clown</option>
-                        <option value="leusistic">Leusistic</option>
-                        <option value="mojave">Mojave</option>
-                        <option value="pastel">Pastel</option>
-                        <option value="pinstripe">Pinstripe</option>
-                        <option value="piebald">Piebald</option>
-                        <option value="spider">Spider</option>
-                    </select>
-                    <br />
-                    <select id="select-female" name="select-female">
-                    	<option data-placeholder="true">Female</option>
-                        <option value="albino">Albino</option>
-                        <option value="bumblebee">Bumblebee</option>
-                        <option value="cinnamon">Cinnamon</option>
-                        <option value="clown">Clown</option>
-                        <option value="leusistic">Leusistic</option>
-                        <option value="mojave">Mojave</option>
-                        <option value="pastel">Pastel</option>
-                        <option value="pinstripe">Pinstripe</option>
-                        <option value="piebald">Piebald</option>
-                        <option value="spider">Spider</option>
-                    </select>
-                    <br />
-                    <a href="#" data-role="button">Calculate</a>
-                </div>
-                	
-            </form>
-		        	
+            <div id="edit_pair_form"></div> <!-- end of edit pair form -->
         </div> <!-- end of content -->
-        
-</div> <!-- end of reptile index page -->
+</div> <!-- end of edit pair page -->
 
-<!-- REPTILE INDEX PAGE -->
+<!-- CLUTCHES -->
 
-<div data-role="page" id="snake_index" data-theme="a">
+<!-- ADD CLUTCH PAGE -->
+
+<div data-role="page" id="add_clutch" data-theme="a">
+		<div class="header" data-role="header" data-theme="a">
+        	<h1>Add Clutch</h1>
+            <a data-role="button" data-theme="a" href="#breeding_thispairing" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div id="add_clutch_form"></div>
+</div> <!-- end of add clutch page -->
+
+<!-- EDIT CLUTCH FORM -->
+
+<div data-role="page" id="breeding_editclutch" data-theme="a">
 		<div data-role="header" data-theme="a">
-        	<h1>Reptile Index</h1>
-            <a data-role="button" data-theme="a" href="#index" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        	<h1>Edit Clutch</h1>
+            <a data-role="button" data-theme="a" href="#breeding_thispairing" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
         </div> <!-- end of header -->
         <div data-role="content">
-        	<!-- inset adds margin space, data filter adds search -->
-        	<ul data-role="listview" data-inset="true">
-            	<li id="bpswipe"><a href="#ballpython" onClick="getBallPythons();" data-transition="slide"><h1>Ball Python</h1><img height="100" src="images/pied.png" alt="Ball Pythons"/><p>(Python Regius)</p><span class="ui-li-count">10</span></a></li>
-				<li><a href="#cornsnake" onClick="getCornSnakes();" data-transition="slide"><h1>Corn Snake</h1><img height="100" src="images/corn_snake.png" alt="Corn Snakes" /><p>(Pantherophis Guttatus)</p><span class="ui-li-count">10</span></a></li>        		
-                <li><a href="#boa" onClick="getBoaConstrictors();" data-transition="slide"><h1>Boa Constrictor</h1><img height="100" src="images/boa.png" alt="Boa Constrictors" /><p>(Constrictor Formosissimus)</p><span class="ui-li-count">10</span></a></li>
-                <li><a href="#carpetpython" onClick="getCarpetPythons();" data-transition="slide"><h1>Carpet Python</h1><img height="100" src="images/carpet_python.png" alt="Carpet Pythons" /><p>(Morelia Spilota)</p><span class="ui-li-count">10</span></a></li> 
-            </ul>
+            <div id="edit_clutch_form"></div> <!-- end of edit clutch form -->
         </div> <!-- end of content -->
-</div> <!-- end of reptile index page -->
+</div> <!-- end of clutch details page -->
 
-<!-- BALL PYTHON PAGE -->
+<!-- EVENTS -->
 
-<div data-role="page" id="ballpython">
-	<div data-role="header" data-theme="a">
-    	<h3>Ball Python</h3>
-        <a data-role="button" data-theme="a" href="#snake_index" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+<!-- INDIVIDUAL EVENT DETAILS -->
+
+<div data-role="page" id="this_event_main" data-theme="a">
+	<div class="header" data-role="header" data-theme="a">
+        <h1>Events</h1>
+        <a data-role="button" data-theme="a" href="#breeding_thispairing" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
     </div> <!-- end of header -->
     <div data-role="content">
-    	<h2 class="index_title">Python Regius</h2>
-        <div data-role="collapsible-set" id="ball_pythons">
-        	<span class="info">
-        	<!-- Ball Python Collapsible Set from JSON -->
-            </span>
-        </div> <!-- end of collapsible set -->
-    </div> <!-- end of content -->
-</div> <!-- end of ball python page -->
+    	<div id="this_event"></div>
+    </div>   
+</div> <!-- end of feeding details -->
 
-<!-- CORN SNAKE PAGE -->
+<!-- ADD EVENT PAGE -->
 
-<div data-role="page" id="cornsnake">
-	<div data-role="header" data-theme="a">
-    	<h3>Corn Snake</h3>
-        <a data-role="button" data-theme="a" href="#snake_index" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
-    </div> <!-- end of header -->
-    <div data-role="content">
-    	<h2 class="index_title">Pantherophis Guttatus</h2>
-        <div data-role="collapsible-set" id="corn_snakes">
-        	<!-- Corn Snake Collapsible Set from JSON -->
-        </div> <!-- end of collapsible set -->
-    </div> <!-- end of content -->
-</div> <!-- end of corn snake page -->
+<div data-role="page" id="add_event" data-theme="a">
+		<div class="header" data-role="header" data-theme="a">
+        	<h1>Add Event</h1>
+            <a data-role="button" data-theme="a" href="#breeding_thispairing" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div id="add_event_form"></div>
+</div> <!-- end of add event page -->
 
-<!-- BOA PAGE -->
+<!-- EDIT EVENT FORM -->
 
-<div data-role="page" id="boa">
-	<div data-role="header" data-theme="a">
-    	<h3>Boa Constrictor</h3>
-        <a data-role="button" data-theme="a" href="#snake_index" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
-    </div> <!-- end of header -->
-    <div data-role="content">
-    	<h2 class="index_title">Constrictor Formosissimus</h2>
-        <div data-role="collapsible-set" id="boa_constrictors">
-            <!-- Boa Constrictor Collapsible Set from JSON -->
-        </div> <!-- end of collapsible set -->
-    </div> <!-- end of content -->
-</div> <!-- end of boa page -->
+<div data-role="page" id="breeding_editevent" data-theme="a">
+		<div data-role="header" data-theme="a">
+        	<h1>Edit Event</h1>
+            <a data-role="button" data-theme="a" href="#breeding_thispairing" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+        </div> <!-- end of header -->
+        <div data-role="content">
+            <div id="edit_event_form"></div> <!-- end of edit event form -->
+        </div> <!-- end of content -->
+</div> <!-- end of event details page -->
 
-<!-- CARPET PYTHON PAGE -->
+<!-- REPTILE INDEX -->
 
-<div data-role="page" id="carpetpython">
-	<div data-role="header" data-theme="a">
-    	<h3>Carpet Python</h3>
-        <a data-role="button" data-theme="a" href="#snake_index" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
-    </div> <!-- end of header -->
-    <div data-role="content">
-    	<h2 class="index_title">Morelia Spilota</h2>
-        <div data-role="collapsible-set" id="carpet_pythons">
-            	<!-- Carpet Python Collapsible Set from JSON -->
-        </div> <!-- end of collapsible set -->
-    </div> <!-- end of content -->
+<!-- MORPH INDEX PAGE -->
     
-</div> <!-- end of boa page -->
-
-<!-- SWIPE ANIMATIONS TO GO BACK -->
+<div data-role="page" id="morph_index" data-theme="a">
+    <div data-role="header" data-theme="a">
+        <h1>Morph Index</h1>
+        <a data-role="button" data-theme="a" href="#index" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+    </div> <!-- end of header -->
+    <div data-role="content">
+        <div id="mj_logo"><img src="images/mj_logo.png" height="216" width="288" alt="Markus Jayne Ball Pythons"/></div>
+        <ul data-role="listview" id="morph_index_list" data-inset="true" data-filter="true" data-filter-placeholder="Search:"></ul>
+    </div> <!-- end of content -->
+    <h3 id="more_morphs">More coming soon!</h3>
+</div> <!-- end of reptile index page -->
+    
+<!-- MORPH DETAILS -->
+    
+<div data-role="page" id="morph_details">
+	<div data-role="header" data-theme="a">
+    	<h1>Morph Index</h1>
+    	<a data-role="button" data-theme="a" href="#morph_index" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+    </div> <!-- end of header -->
+    <div data-role="content" id="morph_info"></div> <!-- end of content -->
+</div> <!-- end of ball python page -->
+    
+<!-- CARE TIPS PAGE -->
+    
+<div data-role="page" id="care_tips" data-theme="a">
+    <div class="header" data-role="header" data-theme="a">
+    	<h1>Care Tips</h1>
+    	<a data-role="button" data-theme="a" href="#index" data-icon="back" data-transition="slide" data-direction="reverse">Back</a>
+    </div> <!-- end of header -->
+    <div data-role="content">
+        <div id="mj_logo_care"><img src="images/mj_logo.png" height="216" width="288" alt="Markus Jayne Ball Pythons"/></div>
+        <div data-role="collapsible-set">
+            <div data-role="collapsible">
+                <h3>Where do ball pythons come from?</h3>
+                <span class="snake_info">Where do ball pythons come from?</span><p>The proper name for ball pythons is Python Regius and are also commonly known as Royal Pythons. In North America they are commonly named ball pythons based on their habit of curling up into a tight ball when feeling threatened. That is their primary defense and are known for their gentle personalities. Very rarely will a ball python ever bite, and when they do it is usually a case of mistaken identity.<br /><br />Originally come from west Africa. Ghana, Benin and Togo are the main countries that they populate although small groups are being discovered and bred elsewhere.<br /><br />They live right on the equator and experience a 12/12 light cycle. They are primarily a nocturnal animal that leave their dens, usually made up of old termite mounds, at night in search for food. They primarily feed on rodents and are constrictors, meaning they are NOT venomous.</p>
+             </div>
+            <div data-role="collapsible">
+                <h3>How big do they get?</h3>
+                <span class="snake_info">How big do they get?</span>
+                <p>Ball pythons can grow to be 6 feet in length, but 4 to 4 1/2 feet is more common. Females are bigger with males averaging out at 3 - 4 feet in length. <br /><br />As a general rule of thumb, females reach sexual maturity their 3rd winter although some reach it earlier. This is certainly the exception and not the rule.<br /><br />Males achieve sexual maturity as early as 6 months but again this is the exception and not the rule. Usually their second winter is the time they start to breed.</p>
+            </div>
+            <div data-role="collapsible">
+                <h3>Are ball pythons dangerous?</h3>
+                <span class="snake_info">Are ball pythons dangerous?</span>
+                <p>No! They will not eat your dog or cat and they are very gentle snakes.</p>
+            </div>
+            <div data-role="collapsible">
+                <h3>Would you recommend a ball python as a pet?</h3>
+                <span class="snake_info">Would you recommend a ball python as a pet?</span>
+    <p>Ball pythons come in many different morphs. Probably more morphs than any other snake today. They are gentle, non-aggressive snake that have personalities that are endearing. They like to be held and very rarely try to get away.<br /><br />They are quiet and with water can be left while going on vacation without a problem. They can be fed every 7 - 14 days without any negative effects and they only relieve themselves based on the frequency of meals.<br /><br />Some ball pythons have been known to be problem feeders. If you are planning on purchasing a ball python, I would strongly suggest purchasing one from a reputable breeder who has quality stock. There are some specialty reptile pet stores that sell quality stock, but most that dabble in all kinds of pets are not a good choice. </p>
+            </div>
+            <div data-role="collapsible">
+                <h3>What size aquarium should I use?</h3>
+                <span class="snake_info">What size aquarium should I use?</span>
+                <p>The general rule of thumb is an aquarium or better yet, terrarium, that is 2/3 the length of your snake.</p>
+            </div>
+            <div data-role="collapsible">
+                <h3>What temperatures and humidity do you recommend?</h3>
+                <span class="snake_info">What temperatures and humidity do you recommend?</span>
+                <p>An ambient temp of 80 is good with a hot spot of 90 - 92 F is recommended. Ball pythons need heat in order to properly digest their food. A basking light or under tank heat pad can provide a good hot spot. Try to purchase all your equipment from a specialty reptile pet store. They sell products that are specifically made for these purposes.<br /><br />A humidity level of 60% is recommended. </p>
+            </div>
+        </div>
+    </div> <!-- end of content -->
+</div> <!-- end of care tips page -->
 
 <script>
-	$("#snake_index").swiperight(function() { // first parameter indicates the page you are on
-		// "#index" parameter indicates which page to go to, transition type is the 	animation and reverse controls the direction of the animation
-		$.mobile.changePage("#index",{ transition: "slide", reverse: true}); 
-		// this changes the distance you must swipe in order to active the slide, default for iPhone 4 is 30px (too small for list view items)
-		$.event.special.swipe.horizontalDistanceThreshold = 130;
-	});
-	$("#reptile_tracker").swiperight(function() {
-		$.mobile.changePage("#index",{ transition: "slide", reverse: true});
-		$.event.special.swipe.horizontalDistanceThreshold = 130;
-	});
-	$("#genetics_calculator").swiperight(function() {
-		$.mobile.changePage("#index",{ transition: "slide", reverse: true});
-		$.event.special.swipe.horizontalDistanceThreshold = 130;
-	});
-	$("#ballpython").swiperight(function() {
-		$.mobile.changePage("#snake_index",{ transition: "slide", reverse: true});
-		$.event.special.swipe.horizontalDistanceThreshold = 130;
-	});
-	$("#cornsnake").swiperight(function() {
-		$.mobile.changePage("#snake_index",{ transition: "slide", reverse: true});
-		$.event.special.swipe.horizontalDistanceThreshold = 130;
-	});
-	$("#boa").swiperight(function() {
-		$.mobile.changePage("#snake_index",{ transition: "slide", reverse: true});
-		$.event.special.swipe.horizontalDistanceThreshold = 130;
-	});
-	$("#carpetpython").swiperight(function() {
-		$.mobile.changePage("#snake_index",{ transition: "slide", reverse: true});
-		$.event.special.swipe.horizontalDistanceThreshold = 130;
-	});
+	function resetAddSnakeForm() {
+		$('#mysnakes_addsnake').find('input:text, input:password, input:file, select, textarea').val('');
+		$('#mysnakes_addsnake').find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+		$("#mysnakes_sex").selectmenu('refresh', true);
+		$("#mysnakes_month").selectmenu('refresh', true);
+		$("#mysnakes_day").selectmenu('refresh', true);
+		$("#mysnakes_year").selectmenu('refresh', true);
+	}
+	
+	function resetAddFeedingForm() {	
+		$("#mysnakes_feedingquantity").selectmenu('refresh', true);
+		$("#mysnakes_feedingsize").selectmenu('refresh', true);
+		$("#mysnakes_feedingtype").selectmenu('refresh', true);
+		$("#mysnakes_year").selectmenu('refresh', true);
+		$("#mysnakes_feedingtype").selectmenu('refresh', true);
+		$("#mysnakes_feedingmonth").selectmenu('refresh', true);
+		$("#mysnakes_feedingday").selectmenu('refresh', true);
+		$("#mysnakes_feedingyear").selectmenu('refresh', true);
+		$('#mysnakes_feedingrefused').find('input:text, input:password, input:file, select, textarea').val('');
+		$('#mysnakes_feedingnotes').find('input:text, input:password, input:file, select, textarea').val('');
+	}
+	
+	function resetAddSheddingForm() {
+		document.getElementById("mysnakes_sheddingnotes").value = "";
+	}
 </script>
 
 </body>
